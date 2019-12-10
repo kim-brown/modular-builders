@@ -1,0 +1,217 @@
+define("artdeco-empty-state/components/artdeco-empty-state",["exports","artdeco-empty-state/templates/components/artdeco-empty-state","artdeco-empty-state/utils/constants"],function(e,t,i){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var s=Ember.Component.extend({layout:t.default,tagName:"section",classNames:["artdeco-empty-state"],actionText:null,buttonType:"secondary",headline:null,message:null,illustration:null,muted:!1,onButtonClick:null,size:i.ILLUSTRATION_SIZE_DEFAULT,theme:"standard",url:null,actions:{buttonClick:function(){Ember.tryInvoke(this,"onButtonClick")}},init:function(){this._super.apply(this,arguments)
+this._assertAttrs()},_assertAttrs:function(){var e=Ember.getProperties(this,["buttonType","headline","illustration","message","muted","onButtonClick","size","theme","url"])
+e.buttonType,e.headline,e.illustration,e.message,e.muted,e.onButtonClick,e.size,e.theme,e.url},_isIllustrationValid:function(e,t){return i.ILLUSTRATIONS.includes(e+(t?"-muted":""))}})
+e.default=s})
+define("artdeco-empty-state/templates/components/artdeco-empty-state",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var t=Ember.HTMLBars.template({id:"qKfZBXHH",block:'{"symbols":[],"statements":[[7,"h1"],[12,"class",[28,["artdeco-empty-state__headline artdeco-empty-state__headline--",[21,"illustration"],[27,"if",[[23,["muted"]],"-muted"],null]," artdeco-empty-state__headline--",[21,"size"]]]],[9],[0,"\\n  "],[1,[21,"headline"],false],[0,"\\n"],[10],[0,"\\n\\n"],[7,"p"],[11,"class","artdeco-empty-state__message"],[9],[0,"\\n  "],[1,[21,"message"],false],[0,"\\n"],[10],[0,"\\n\\n"],[4,"if",[[23,["actionText"]]],null,{"statements":[[4,"if",[[23,["url"]]],null,{"statements":[[0,"    "],[7,"a"],[12,"href",[28,[[21,"url"]]]],[12,"class",[28,["artdeco-button artdeco-button--",[21,"buttonType"]," artdeco-button--",[21,"theme"]," artdeco-empty-state__action"]]],[12,"target",[28,[[21,"ctaTarget"]]]],[12,"rel",[28,[[21,"ctaRel"]]]],[12,"data-control-name",[28,[[21,"ctaDataControlName"]]]],[9],[0,"\\n      "],[1,[21,"actionText"],false],[0,"\\n    "],[10],[0,"\\n"]],"parameters":[]},{"statements":[[0,"    "],[1,[27,"artdeco-button",null,[["class","click","text","type","theme","data-control-name"],["artdeco-empty-state__action",[27,"action",[[22,0,[]],"buttonClick"],null],[23,["actionText"]],[23,["buttonType"]],[23,["theme"]],[23,["ctaDataControlName"]]]]],false],[0,"\\n"]],"parameters":[]}]],"parameters":[]},null]],"hasEval":false}',meta:{moduleName:"artdeco-empty-state/templates/components/artdeco-empty-state.hbs"}})
+e.default=t})
+define("artdeco-empty-state/utils/constants",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.THEMES=e.BUTTON_TYPES=e.ILLUSTRATION_SIZES=e.ILLUSTRATION_SIZE_DEFAULT=e.ILLUSTRATIONS=void 0
+e.ILLUSTRATIONS=["add-attachment","add-connection-inverse","add-feed","add-media","add-school","address-book-import","blank-page-muted","blank-page","calendar-import","camera-lens-muted","camera-lens","clipboard-muted","clipboard-check","contacts-sync","deserted-island","desktop-mobile-screens","desktop-text-ads","edit-pipeline","empty-clipboard","empty-course-bookmark","empty-globe-search","empty-monitor-unfollow","empty-pencil-paper","empty-rocket-launch","empty-search-company","empty-search-groups","empty-search-jobs","empty-search-people","empty-search-results","empty-search-school","empty-trophy","empty-video-bookmark","empty-video-course","empty-video-single","folder-data-transfer","gray-missing-profile","inmail-personalized","laptop-personal-ads","missing-piece-muted","missing-piece","missing-profile-muted","no-connection-muted","no-connection","no-entities-muted","no-entities","no-invites-muted","no-invites","no-jobs-muted","no-jobs","no-likers-muted","no-likers","no-messages-muted","no-messages","no-profile-views-muted","no-profile-views","paper-move-folder","people-comment","people-nearby-muted","sad-browser-muted","sad-browser","saved-articles","search-companies-muted","search-groups-muted","search-jobs-muted","search-people-muted","search-results-muted","search-schools-muted","shooting-star-muted","shooting-star","star-empty-muted","star-empty","star-muted","star","success-award","success-check","success-inbug","upload-media-muted","upload-media"]
+e.ILLUSTRATION_SIZE_DEFAULT=3
+e.ILLUSTRATION_SIZES=[1,2,3]
+e.BUTTON_TYPES=["secondary","tertiary"]
+e.THEMES=["standard","pro"]})
+define("artdeco-entity-pile/components/artdeco-entity-pile",["exports","artdeco-entity-pile/templates/components/artdeco-entity-pile"],function(e,t){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var i=Ember.Component.extend({layout:t.default,tagName:"ul",attributeBindings:["_tabindex:tabindex"],classNames:["artdeco-entity-pile"],classNameBindings:["stacked:artdeco-entity-pile--stacked"],totalEntityCount:null,size:2,shape:"circle",stacked:!1,_hasIndividualTouchTargets:Ember.computed("size","stacked",(function(){return!Ember.get(this,"stacked")&&Ember.get(this,"size")>2})).readOnly(),_tabindex:Ember.computed("_hasIndividualTouchTargets",(function(){return Ember.get(this,"_hasIndividualTouchTargets")?-1:0})).readOnly(),_hasRollup:Ember.computed("entities.[]","_maxEntities",(function(){return Ember.get(this,"entities").length>Ember.get(this,"_maxEntities")})).readOnly(),_rollupCount:Ember.computed("entities.[]","_maxEntities","totalEntityCount",(function(){var e=(Ember.get(this,"totalEntityCount")||Ember.get(this,"entities").length)-(Ember.get(this,"_maxEntities")-1)
+return Math.min(e,99)})).readOnly(),_entities:Ember.computed("_hasRollup","entities.[]","_maxEntities",(function(){var e=Ember.get(this,"entities")
+return Ember.get(this,"_hasRollup")?e.slice(0,Ember.get(this,"_maxEntities")-1):e})),_maxEntities:Ember.computed("maxEntities","stacked",(function(){var e=this.get("maxEntities"),t=this.get("stacked"),i=t?12:8
+return e||i})),click:function(){Ember.get(this,"_hasIndividualTouchTargets")||Ember.tryInvoke(this,"onEntityClick")},keyDown:function(e){13===e.keyCode&&this.click(e)},actions:{entityClick:function(e){Ember.get(this,"_hasIndividualTouchTargets")&&Ember.tryInvoke(this,"onEntityClick",[e])},entityKeyDown:function(e,t){13===t.keyCode&&Ember.get(this,"_hasIndividualTouchTargets")&&Ember.tryInvoke(this,"onEntityClick",[e])},rollupClick:function(e){Ember.get(this,"_hasIndividualTouchTargets")&&Ember.tryInvoke(this,"onRollupClick",[e])},rollupKeyDown:function(e,t){13===t.keyCode&&Ember.get(this,"_hasIndividualTouchTargets")&&Ember.tryInvoke(this,"onRollupClick",[e])}}})
+e.default=i})
+define("artdeco-entity-pile/templates/components/artdeco-entity-pile",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var t=Ember.HTMLBars.template({id:"bwRx2OJh",block:'{"symbols":["entity","&default"],"statements":[[4,"each",[[23,["_entities"]]],null,{"statements":[[0,"  "],[7,"li"],[12,"tabindex",[28,[[27,"if",[[23,["_hasIndividualTouchTargets"]],0],null]]]],[12,"class",[28,["artdeco-entity-pile__entity artdeco-entity-pile__entity--",[21,"size"]," ",[27,"if",[[23,["onEntityClick"]],"artdeco-entity-pile__entity--has-action"],null]]]],[12,"onkeyDown",[27,"action",[[22,0,[]],"entityKeyDown",[22,1,[]]],null]],[3,"action",[[22,0,[]],"entityClick",[22,1,[]]]],[9],[0,"\\n"],[4,"if",[[24,2]],null,{"statements":[[0,"      "],[14,2,[[22,1,[]],[23,["shape"]],[23,["size"]],[23,["index"]]]],[0,"\\n"]],"parameters":[]},{"statements":[[0,"      "],[7,"img"],[12,"class",[28,["artdeco-entity-pile__image artdeco-entity-pile__image--",[21,"shape"]," artdeco-entity-pile__image--",[21,"size"]]]],[12,"src",[22,1,["img"]]],[12,"alt",[22,1,["title"]]],[9],[10],[0,"\\n"]],"parameters":[]}],[0,"  "],[10],[0,"\\n"]],"parameters":[1]},null],[4,"if",[[23,["_hasRollup"]]],null,{"statements":[[0,"  "],[7,"li"],[12,"tabindex",[28,[[27,"if",[[23,["_hasIndividualTouchTargets"]],0],null]]]],[12,"class",[28,["artdeco-entity-pile__entity artdeco-entity-pile__entity--",[21,"size"]," ",[27,"if",[[23,["onRollupClick"]],"artdeco-entity-pile__entity--has-action"],null]]]],[12,"onkeyDown",[27,"action",[[22,0,[]],"rollupKeyDown",[23,["_rollupCount"]]],null]],[3,"action",[[22,0,[]],"rollupClick",[23,["_rollupCount"]]]],[9],[0,"\\n    "],[7,"div"],[12,"class",[28,["artdeco-entity-pile__image artdeco-entity-pile__image--",[21,"shape"]," artdeco-entity-pile__image--",[21,"size"]]]],[9],[0,"\\n      "],[7,"div"],[12,"class",[28,["artdeco-entity-pile__rollup artdeco-entity-pile__rollup--",[21,"shape"]," artdeco-entity-pile__rollup--",[21,"size"]]]],[9],[0,"\\n        "],[1,[27,"t",["i18n_rollup_total","artdeco-entity-pile/templates/components/artdeco-entity-pile"],[["count"],[[23,["_rollupCount"]]]]],false],[0,"\\n      "],[10],[0,"\\n    "],[10],[0,"\\n  "],[10],[0,"\\n"]],"parameters":[]},null]],"hasEval":false}',meta:{moduleName:"artdeco-entity-pile/templates/components/artdeco-entity-pile.hbs"}})
+e.default=t})
+define("artdeco-toggle/components/artdeco-toggle",["exports","artdeco-toggle/templates/components/artdeco-toggle","@linkedin/ember-cli-css-blocks-migration","ember-lifeline"],function(e,t,i,s){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var n=Ember.Component.extend({layout:t.default,tagName:i.isEnabled?"":"artdeco-toggle",toggled:!1,isFocused:!1,size:"32px",theme:"light",disabled:!1,isLabelHidden:!1,attributeBindings:i.isEnabled?void 0:["size","theme","disabled","toggled:data-artdeco-toggled"],init:function(){this._super.apply(this,arguments)
+i.isEnabled
+this.get("toggleId")||this.set("toggleId","adToggle_".concat(Ember.guidFor(this)))},willDestroy:function(){this._super.apply(this,arguments);(0,s.runDisposables)(this)},actions:{toggle:function(){var e=this;(0,s.runTask)(this,(function(){Ember.tryInvoke(e,"onToggle",[!e.get("toggled")])}),10)},focus:function(e){this.set("isFocused",e)},noop:function(){return!1}}})
+e.default=n})
+define("artdeco-toggle/templates/components/artdeco-toggle",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var t=Ember.HTMLBars.template({id:"SzoQvEpp",block:'{"symbols":[],"statements":[[7,"label"],[12,"for",[21,"toggleId"]],[12,"class",[27,"if",[[23,["isLabelHidden"]],"a11y-text"],null]],[3,"action",[[22,0,[]],"noop"]],[9],[1,[21,"labelText"],false],[10],[0,"\\n"],[7,"button"],[12,"id",[21,"toggleId"]],[12,"disabled",[21,"disabled"]],[12,"aria-pressed",[27,"if",[[23,["toggled"]],"true","false"],null]],[12,"data-control-name",[21,"trackingControlName"]],[11,"type","button"],[3,"action",[[22,0,[]],"toggle"]],[9],[0,"\\n"],[4,"if",[[23,["toggled"]]],null,{"statements":[[0,"    "],[1,[27,"if",[[23,["toggledText"]],[23,["toggledText"]],[27,"t",["ad_toggled_text","artdeco-toggle/templates/components/artdeco-toggle"],null]],null],false],[0,"\\n"]],"parameters":[]},{"statements":[[0,"    "],[1,[27,"if",[[23,["untoggledText"]],[23,["untoggledText"]],[27,"t",["ad_untoggled_text","artdeco-toggle/templates/components/artdeco-toggle"],null]],null],false],[0,"\\n"]],"parameters":[]}],[10],[0,"\\n"]],"hasEval":false}',meta:{moduleName:"artdeco-toggle/templates/components/artdeco-toggle.hbs"}})
+e.default=t})
+define("conversations/components/quick-replies",["exports","ember-batcher","msg-shared/utils/constants","conversations/templates/components/quick-replies"],function(e,t,i,s){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var n=i.default.IMPRESSION_KEYS.CONTEXTUAL_RECOMMENDATION_IMPRESSION,a=Ember.Component.extend({layout:s.default,lix:Ember.inject.service("lix"),store:Ember.inject.service("store"),tracking:Ember.inject.service("tracking"),classNames:["conversations-quick-replies","justify-center","display-flex","align-items-center","p2"],classNameBindings:["useEditableQuickRepliesV2UI:conversations-quick-replies--chat-ui"],disableScrollLeft:!0,disableScrollRight:!1,animateIn:!0,filteredQuickReplies:Ember.computed.filter("quickReplies.[]",(function(e){var t=e.reply
+if(t){var i=t.get("replyType")
+if("VOICE"===i)return!1
+if(!Ember.get(this,"openGIFPopover")&&"GIF"===i)return!1}return!0})).readOnly(),init:function(){this._super.apply(this,arguments)
+Ember.get(this,"tracking").setupTrackableComponent(this)
+this._cachedContextWidth=Ember.get(this,"contextWidth")
+var e="enabled-v2"===Ember.get(this,"editableQuickRepliesEnabled")
+Ember.set(this,"useEditableQuickRepliesV2UI",e)},didInsertElement:function(){this._super.apply(this,arguments)
+this.scrollingElement=this.element.querySelector(".conversations-quick-replies__container")},didReceiveAttrs:function(){this._super.apply(this,arguments)
+var e=Ember.get(this,"eventId")
+this.shouldUpdate=!e||e!==this.lastQRId
+if(this.shouldUpdate){Ember.set(this,"animateIn",!1)
+this.lastQRId=e}},didUpdateAttrs:function(){this._super.apply(this,arguments)
+if(this._cachedContextWidth!==Ember.get(this,"contextWidth")){this._checkOverflow()
+this._cachedContextWidth=Ember.get(this,"contextWidth")}},didRender:function(){this._super.apply(this,arguments)
+if(this.shouldUpdate){this._checkOverflow()
+this.shouldUpdate=!1}},onExposed:function(){var e=Ember.get(this,"useCase")
+if(e){var t=Ember.get(this,"filteredQuickReplies"),i=Ember.get(this,"tracking")
+t.forEach((function(t){var s=t.reply
+i.fireTrackingPayload(n,{recommendedEntity:{recommendedEntityUrn:s.get("objectUrn"),recommendationTrackingId:s.get("recommendationTrackingId"),usecase:e,visibleTime:0,duration:0,listPosition:{index:0}}})}))}},_checkOverflow:function(){var e=this
+Ember.set(this,"hasOverflow",!1);(0,t.mutateDOM)((function(){e.isDestroying||Ember.run((function(){Ember.set(e,"hasOverflow",e.scrollingElement.scrollWidth>e.scrollingElement.clientWidth)}))}))},_updateScrollButtons:function(){var e=this.scrollingElement.scrollWidth-this.scrollingElement.clientWidth,t=!1,i=!1
+0===this.scrollingElement.scrollLeft?t=!0:this.scrollingElement.scrollLeft===e&&(i=!0)
+Ember.setProperties(this,{disableScrollLeft:t,disableScrollRight:i})},actions:{sendQuickReply:function(e,t){Ember.get(this,"saveReply")(e,t,Ember.get(this,"useCase"))},scrollHandler:function(e){var i=this;(0,t.mutateDOM)((function(){if(!i.isDestroying){var t=i.scrollingElement.scrollLeft,s="LEFT"===e?t-120:t+120
+i.scrollingElement.scrollLeft=s
+i._updateScrollButtons()}}))}}})
+e.default=a})
+define("conversations/templates/components/quick-replies",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var t=Ember.HTMLBars.template({id:"o52+d9rp",block:'{"symbols":["reply"],"statements":[[4,"if",[[23,["hasOverflow"]]],null,{"statements":[[4,"artdeco-button@artdeco-button",null,[["class","color","type","disabled","click"],["conversations-quick-replies__control-icon mr2","muted","tertiary",[23,["disableScrollLeft"]],[27,"action",[[22,0,[]],"scrollHandler","LEFT"],null]]],{"statements":[[0,"    "],[1,[27,"ember-cli-pemberly-artdeco@li-icon",null,[["type","size","a11y-text"],["chevron-left-icon","small",[27,"t",["i18n_scroll_quick_replies_left","conversations/templates/components/quick-replies"],null]]]],false],[0,"\\n"]],"parameters":[]},null]],"parameters":[]},null],[7,"ul"],[12,"class",[28,["conversations-quick-replies__container relative list-style-none display-flex justify-flex-start overflow-hidden mhA",[27,"if",[[23,["animateIn"]]," conversation-quick-replies__animate-in"],null]]]],[9],[0,"\\n"],[4,"each",[[23,["filteredQuickReplies"]]],null,{"statements":[[0,"    "],[7,"li"],[11,"class","conversations-quick-replies__reply"],[9],[0,"\\n"],[4,"if",[[27,"global-helpers@eq",[[22,1,["reply","replyType"]],"GIF"],null]],null,{"statements":[[0,"        "],[7,"button"],[11,"class","conversations-quick-replies__reply-button conversations-quick-replies__reply-button--rich-props artdeco-button artdeco-button--2 artdeco-button--secondary"],[11,"data-control-name","smart_action_gif"],[3,"action",[[22,0,[]],[23,["openGIFPopover"]],[22,1,["reply","quickActionPrefillText"]],[27,"tracking",null,[["control-name"],["smart_action_gif"]]]]],[9],[0,"\\n          "],[1,[27,"ember-cli-pemberly-artdeco@li-icon",null,[["type","size","class"],["gif-icon","small","conversations-quick-replies__rich-props-icon"]]],false],[0,"\\n          "],[7,"hr"],[11,"class","conversation-quick-replies__rich-props-vertical-divider"],[9],[10],[0,"\\n          "],[7,"span"],[11,"class","a11y-text"],[9],[1,[27,"t",["i18n_a11y_reply_context","conversations/templates/components/quick-replies"],[["contentText"],[[22,1,["reply","quickActionPrefillText"]]]]],false],[10],[0,"\\n          "],[7,"span"],[11,"aria-hidden","true"],[11,"class","ml2 mr3"],[9],[1,[27,"t",["i18n_a11y_search_gif_text","conversations/templates/components/quick-replies"],[["prefilledText"],[[22,1,["reply","quickActionPrefillText"]]]]],false],[10],[0,"\\n        "],[10],[0,"\\n"]],"parameters":[]},{"statements":[[4,"artdeco-button@artdeco-button",null,[["class","type","data-control-name","click"],["conversations-quick-replies__reply-button","secondary",[23,["controlActionEventName"]],[27,"action",[[22,0,[]],"sendQuickReply",[22,1,["reply"]],[23,["conversation"]]],null]]],{"statements":[[0,"          "],[7,"span"],[11,"class","a11y-text"],[9],[1,[27,"t",["i18n_a11y_reply_context","conversations/templates/components/quick-replies"],[["contentText"],[[22,1,["text"]]]]],false],[10],[0,"\\n          "],[7,"span"],[11,"aria-hidden","true"],[9],[1,[22,1,["text"]],false],[10],[0,"\\n"]],"parameters":[]},null]],"parameters":[]}],[0,"    "],[10],[0,"\\n"]],"parameters":[1]},null],[10],[0,"\\n\\n"],[4,"if",[[23,["hasOverflow"]]],null,{"statements":[[4,"artdeco-button@artdeco-button",null,[["class","color","type","disabled","click"],["conversations-quick-replies__control-icon ml2","muted","tertiary",[23,["disableScrollRight"]],[27,"action",[[22,0,[]],"scrollHandler","RIGHT"],null]]],{"statements":[[0,"    "],[1,[27,"ember-cli-pemberly-artdeco@li-icon",null,[["type","size","a11y-text"],["chevron-right-icon","small",[27,"t",["i18n_scroll_quick_replies_right","conversations/templates/components/quick-replies"],null]]]],false],[0,"\\n"]],"parameters":[]},null]],"parameters":[]},null]],"hasEval":false}',meta:{moduleName:"conversations/templates/components/quick-replies.hbs"}})
+e.default=t})
+define("msg-typeahead/components/connections-typeahead-v2",["exports","@babel/runtime/helpers/esm/initializerDefineProperty","@babel/runtime/helpers/esm/createClass","@babel/runtime/helpers/esm/assertThisInitialized","@babel/runtime/helpers/esm/inheritsLoose","@babel/runtime/helpers/esm/applyDecoratedDescriptor","@babel/runtime/helpers/esm/initializerWarningHelper","@ember-decorators/component","ember-copy","msg-shared/utils/constants","msg-typeahead/templates/components/connections-typeahead-v2","ember-batcher"],function(e,t,i,s,n,a,l,o,r,c,d,p){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var u,m,h,g,f,y,b,_,v,E,k,R,T,S,x,I,O,C,N,L={},P=c.default.KEYCODES,w=c.default.MESSAGE_TYPEAHEAD_SEARCH_TYPES,D=w.CONNECTIONS,A=w.GROUP_THREADS,F=c.default.MESSAGE_TYPEAHEAD_RESULT_TYPES,j=F.CONVERSATION,U=F.PROFILE,q=c.default.LIX.ENABLE_GROUP_COMPOSE_FLOW,M=c.default.ENABLE_GROUP_COMPOSE_FLOW_VARIANTS,z=(u=(0,o.layout)(d.default),m=(0,o.classNameBindings)("isFocused:msg-connections-typeahead--focused","withSuggestedList:msg-connections-typeahead-with-suggested-list"),h=(0,o.classNames)("msg-connections-typeahead","relative"),g=Ember.inject.service("global-services@a11y-notification"),f=Ember.inject.service("i18n"),y=Ember.inject.service("msg-data@data-manager"),b=Ember.inject.service("store"),_=Ember.inject.service("tracking"),v=Ember.inject.service("lix"),E=Ember.computed("showSearchIcon","recipients.length").readOnly(),k=Ember.computed("searchPerformed","isFocused","withSuggestedList").readOnly(),u(R=m(R=h(R=(T=(function(e){(0,n.default)(a,e)
+function a(){for(var i,n=arguments.length,a=new Array(n),l=0;l<n;l++)a[l]=arguments[l]
+i=e.call.apply(e,[this].concat(a))||this;(0,t.default)(i,"a11yNotification",S,(0,s.default)(i));(0,t.default)(i,"i18n",x,(0,s.default)(i));(0,t.default)(i,"msgDataManager",I,(0,s.default)(i));(0,t.default)(i,"store",O,(0,s.default)(i));(0,t.default)(i,"tracking",C,(0,s.default)(i));(0,t.default)(i,"lix",N,(0,s.default)(i))
+i.addRecipientControlName="search_add"
+i.openConversationControlName="search_add_group"
+i.beginSearchControlName="begin_recipient_search"
+i.searchTerm=""
+i.searchFieldClass="msg-connections-typeahead__search-field"
+i.hiddenFieldSelector=".msg-connections-typeahead__hidden-field"
+i.searchFieldSelector=".msg-connections-typeahead__search-field"
+i.searchResultsSelector=".msg-connections-typeahead__search-results"
+i.addedRecipientsSelector=".msg-connections-typeahead__added-recipients"
+i.CONVERSATION=j
+return i}var l=a.prototype
+l.init=function(){e.prototype.init.apply(this,arguments)
+var t=this.get("lix").getTreatment(q)
+this.set("enableGroupComposeFlow",t===M.GROUP_COMPOSE_AND_NO_PROFILE_PHOTO||t===M.GROUP_COMPOSE_AND_DROPDOWN_MENU)
+if(this.get("enableGroupComposeFlow")&&this.get("withSuggestedList")){this.searchResultsSelector=".msg-connections-typeahead__inplace-search-results"
+this._fetchSuggestedRecipients()}}
+l.didInsertElement=function(){e.prototype.didInsertElement.apply(this,arguments)
+this.addedRecipientsContainer=this.element.querySelector(this.get("addedRecipientsSelector"))}
+l.didReceiveAttrs=function(){e.prototype.didReceiveAttrs.apply(this,arguments)
+this.set("recipients",(0,r.copy)(this.get("prefilledRecipients"))||[])
+this._markSelectedRecipients()}
+l.focusIn=function(e){var t=this
+this.runTask((function(){if(!t.get("isDestroying")){t.set("isFocused",!0)
+var i=t.get("possibleRecipients")
+if(i){var s=e.target&&e.target.id,n=i.findBy("entityUrn",s)
+n&&t._setFocusedRecipient(n)}}}))}
+l.focusOut=function(){var e=this
+this.runTask((function(){e.get("isDestroying")||e.set("isFocused",!1)}))}
+l.click=function(e){e.target===this.element&&this._focusSearchField()}
+l.keyDown=function(e){switch(e.keyCode){case P.UP_ARROW:this._moveFocusedRecipient(-1)
+e.preventDefault()
+break
+case P.DOWN_ARROW:this._moveFocusedRecipient(1)
+e.preventDefault()
+break
+case P.BACKSPACE:if(e.target.classList.contains(this.get("searchFieldClass"))&&!e.target.value){var t=this.get("recipients.lastObject")
+t&&this.actions.removeRecipient.call(this,t)}break
+case P.ENTER:if(e.target===this._getSearchField()){var i=this.get("focusedRecipient"),s=this.get("focusedRecipient.recipientType")
+s===j?this.get("openConversation")(i.get("conversationId")):s===U&&this.actions.addRecipient.call(this,i.get("miniProfile"))}break
+case P.ESC:this._closeDropdown()
+this._markSelectedRecipients()}}
+l._closeDropdown=function(){this.set("searchPerformed",!1)
+this.get("withSuggestedList")?this.setProperties({possibleRecipients:this.get("suggestedRecipients"),isSuggestedList:!0}):this.set("possibleRecipients",null)}
+l._ensureRecipientIsScrolledIntoView=function(e){if(e.get("entityUrn")){var t=e.get("entityUrn").replace(/:/g,"\\:"),i=this.element&&this.element.querySelector("#"+t)
+if(i){var s=i.offsetTop,n=s+i.offsetHeight,a=this.element.querySelector(this.get("searchResultsSelector")),l=a.offsetHeight,o=a.scrollTop
+n>o+l?a.scrollTop=n-l:s<o&&(a.scrollTop=s)}}}
+l._focusSearchField=function(){this._getSearchField().focus()}
+l._getSearchField=function(){return this.element.querySelector(this.get("searchFieldSelector"))}
+l._getHiddenField=function(){return this.element.querySelector(this.get("hiddenFieldSelector"))}
+l._moveFocusedRecipient=function(e){var t=this.get("possibleRecipients")
+if(t&&0!==t.length){var i=this.get("focusedRecipient"),s=t.indexOf(i),n=this.get("possibleRecipients.length"),a=i?(s+e+n)%n:0
+this._setFocusedRecipient(t.objectAt(a))}}
+l._setFocusedRecipient=function(e){this._ensureRecipientIsScrolledIntoView(e)
+this.set("focusedRecipient",e)}
+l._sendA11yNotification=function(e,t){var i=L[e]
+if(!i){i=this.get("i18n").getMessageRenderer(d.default,e)
+L[e]=i}return this.get("a11yNotification").setTextInLiveRegion(i([t]))}
+l._fetchRecipients=function(e,t){var i=this
+if(e){var s=t||[D]
+this.get("includeGroupConversationResults")&&!this.get("recipients.length")&&s.push(A)
+this.setProperties({recipientsLoading:!0,isSuggestedList:!1})
+this.msgDataManager.fetchTypeaheadResults(e,s).then((function(t){if(!i.isDestroying){t.length?i.setProperties({focusedRecipient:t.get("firstObject"),possibleRecipients:t,isSuggestedList:!1}):i.get("enableGroupComposeFlow")&&i.get("withSuggestedList")&&!e?i.setProperties({focusedRecipient:i.get("suggestedRecipients.firstObject"),possibleRecipients:i.get("suggestedRecipients"),isSuggestedList:!0}):i.set("possibleRecipients",null)
+i.setProperties({searchPerformed:!0,recipientsLoading:!1})
+i._markSelectedRecipients()
+i._sendA11yNotification("i18n_a11y_suggestions_hint_text",{resultsLength:Ember.get(t,"length")})}}))}else{this._closeDropdown()
+this._markSelectedRecipients()}}
+l._fetchSuggestedRecipients=function(){var e=this
+this.set("recipientsLoading",!0)
+this.msgDataManager.fetchSuggestedRecipients().then((function(t){if(!e.isDestroying){e.setProperties({possibleRecipients:t,recipientsLoading:!1,isSuggestedList:!0,suggestedRecipients:t})
+e._setFocusedRecipient(t[0])
+e._markSelectedRecipients()}}))}
+l._markSelectedRecipients=function(){var e=this.get("recipients")||[],t=this.get("possibleRecipients")
+if(t){var i=e.reduce((function(e,t){e.set(t.get("entityUrn"),!0)
+return e}),new Map)
+t.forEach((function(e){e.set("checked",i.has(e.get("entityUrn")))}))}}
+l._toggleRecipient=function(e,t){var i=this.get("possibleRecipients")
+if(i){var s=i.findBy("entityUrn",e.get("entityUrn"))
+s&&s.set("checked",t)}}
+l.addRecipient=function(e){var t=this
+this.get("recipients").addObject(e)
+this.recipientsChanged(this.get("recipients"))
+this._sendA11yNotification("i18n_a11y_added_recipient",{name:Ember.get(e,"name")})
+this._getSearchField().value=""
+this.set("searchTerm","")
+this._closeDropdown()
+this._toggleRecipient(e,!0)
+this._focusSearchField();(0,p.mutateDOM)((function(){t.isDestroying||(t.addedRecipientsContainer.scrollTop=t.addedRecipientsContainer.scrollHeight)}))}
+l.removeRecipient=function(e){this.get("recipients").removeObject(e)
+this.recipientsChanged(this.get("recipients"))
+this._toggleRecipient(e,!1)
+this._sendA11yNotification("i18n_a11y_removed_recipient",{name:Ember.get(e,"name")})
+this._focusSearchField()}
+l.debounceFetchRecipients=function(){var e=this.get("searchTerm"),t=this._getSearchField().value
+!e&&t&&this.get("tracking").fireInteractionEvent(this.get("beginSearchControlName"))
+this.set("searchTerm",t)
+var i=this.get("typeaheadTypes")
+if(Ember.testing)this._fetchRecipients(t,i)
+else{Ember.run.cancel(this.debounce)
+var s=Ember.testing?0:500
+this.debounce=this.debounceTask("_fetchRecipients",t,i,s)}}
+l.onListItemHover=function(e){this.set("focusedRecipient",e)};(0,i.default)(a,[{key:"displaySearchIcon",get:function(){return this.get("showSearchIcon")&&0===this.get("recipients.length")}},{key:"displaySearchResults",get:function(){return this.get("withSuggestedList")||this.get("searchPerformed")&&this.get("isFocused")}}])
+return a})(Ember.Component),S=(0,a.default)(T.prototype,"a11yNotification",[g],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),x=(0,a.default)(T.prototype,"i18n",[f],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),I=(0,a.default)(T.prototype,"msgDataManager",[y],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),O=(0,a.default)(T.prototype,"store",[b],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),C=(0,a.default)(T.prototype,"tracking",[_],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),N=(0,a.default)(T.prototype,"lix",[v],{configurable:!0,enumerable:!0,writable:!0,initializer:null}),(0,a.default)(T.prototype,"displaySearchIcon",[E],Object.getOwnPropertyDescriptor(T.prototype,"displaySearchIcon"),T.prototype),(0,a.default)(T.prototype,"displaySearchResults",[k],Object.getOwnPropertyDescriptor(T.prototype,"displaySearchResults"),T.prototype),(0,a.default)(T.prototype,"addRecipient",[Ember._action],Object.getOwnPropertyDescriptor(T.prototype,"addRecipient"),T.prototype),(0,a.default)(T.prototype,"removeRecipient",[Ember._action],Object.getOwnPropertyDescriptor(T.prototype,"removeRecipient"),T.prototype),(0,a.default)(T.prototype,"debounceFetchRecipients",[Ember._action],Object.getOwnPropertyDescriptor(T.prototype,"debounceFetchRecipients"),T.prototype),(0,a.default)(T.prototype,"onListItemHover",[Ember._action],Object.getOwnPropertyDescriptor(T.prototype,"onListItemHover"),T.prototype),T))||R)||R)||R)
+e.default=z})
+define("msg-typeahead/templates/components/connections-typeahead-v2",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var t=Ember.HTMLBars.template({id:"f5Mf68st",block:'{"symbols":["recipient","recipient"],"statements":[[4,"if",[[23,["a11yText"]]],null,{"statements":[[0,"  "],[7,"label"],[12,"for",[28,[[21,"elementId"],"-search-field"]]],[11,"class","visually-hidden"],[9],[1,[21,"a11yText"],false],[10],[0,"\\n"]],"parameters":[]},null],[7,"section"],[11,"class","msg-connections-typeahead__top-fixed-section"],[9],[0,"\\n  "],[7,"div"],[11,"class","msg-connections-typeahead__added-recipients"],[9],[0,"\\n"],[4,"each",[[23,["recipients"]]],null,{"statements":[[0,"      "],[1,[27,"artdeco-pill@artdeco-pill-dismiss",null,[["class","text","a11yText","onDismiss","size"],["m1",[27,"ember-cli-pemberly-i18n@format-name",null,[["firstName","lastName","type"],[[22,2,["firstName"]],[22,2,["lastName"]],"full"]]],[27,"t",["i18n_remove_recipient","msg-typeahead/templates/components/connections-typeahead-v2"],[["recipientName"],[[27,"data-layer@name",[[22,2,[]]],null]]]],[27,"action",[[22,0,[]],"removeRecipient",[22,2,[]]],null],1]]],false],[0,"\\n"]],"parameters":[2]},null],[0,"\\n    "],[7,"input"],[12,"id",[27,"concat",[[23,["elementId"]],"-search-field"],null]],[12,"class",[27,"concat",["msg-connections-typeahead__search-field",[27,"unless",[[23,["recipients"]]," msg-connections-typeahead__search-field--no-recipients"],null],[27,"if",[[23,["displaySearchIcon"]]," ml6"," ml1"],null]],null]],[12,"autofocus",[21,"autofocus"]],[12,"placeholder",[27,"unless",[[23,["recipients"]],[23,["placeholder"]]],null]],[11,"role","combobox"],[11,"aria-autocomplete","list"],[12,"aria-owns",[27,"concat",[[23,["elementId"]],"-suggestions-menu"],null]],[12,"aria-expanded",[27,"if",[[23,["possibleRecipients"]],"true","false"],null]],[12,"aria-activedescendant",[23,["focusedRecipient","entityUrn"]]],[11,"type","text"],[3,"action",[[22,0,[]],"debounceFetchRecipients"],[["on"],["input"]]],[9],[10],[0,"\\n\\n"],[4,"if",[[23,["displaySearchIcon"]]],null,{"statements":[[0,"      "],[1,[27,"ember-cli-pemberly-artdeco@li-icon",null,[["aria-hidden","class","type","size"],["true","msg-connections-typeahead__search-field-icon","search-icon","large"]]],false],[0,"\\n"]],"parameters":[]},null],[0,"\\n    "],[7,"div"],[11,"class","msg-connections-typeahead__hidden-field"],[9],[10],[0,"\\n  "],[10],[0,"\\n\\n"],[4,"if",[[23,["isSuggestedList"]]],null,{"statements":[[0,"    "],[7,"div"],[11,"class","t-bold t-14 t-black--light pb2 pl3 pt2"],[9],[1,[27,"t",["i18n_suggested","msg-typeahead/templates/components/connections-typeahead-v2"],null],false],[10],[0,"\\n"]],"parameters":[]},null],[10],[0,"\\n"],[4,"if",[[23,["displaySearchResults"]]],null,{"statements":[[0,"  "],[7,"div"],[12,"class",[27,"if",[[23,["withSuggestedList"]],"msg-connections-typeahead__inplace-search-results","msg-connections-typeahead__search-results container"],null]],[9],[0,"\\n"],[4,"if",[[23,["recipientsLoading"]]],null,{"statements":[[0,"      "],[7,"div"],[11,"class","msg-connections-typeahead__recipients-list-loading"],[9],[0,"\\n        "],[5,"artdeco-loader@artdeco-loader",[[11,"class","mhA"]],[[],[]]],[0,"\\n      "],[10],[0,"\\n"]],"parameters":[]},{"statements":[[4,"if",[[23,["possibleRecipients"]]],null,{"statements":[[0,"      "],[7,"ul"],[11,"class","list-style-none"],[11,"role","listbox"],[12,"id",[27,"concat",[[23,["elementId"]],"-suggestions-menu"],null]],[9],[0,"\\n"],[4,"each",[[23,["possibleRecipients"]]],null,{"statements":[[0,"          "],[7,"li"],[11,"role","presentation"],[12,"onmouseover",[27,"action",[[22,0,[]],"onListItemHover",[22,1,[]]],null]],[9],[0,"\\n"],[4,"if",[[27,"global-helpers@eq",[[22,1,["recipientType"]],[23,["CONVERSATION"]]],null]],null,{"statements":[[0,"              "],[7,"button"],[12,"class",[28,["display-flex flex-row align-items-center msg-connections-typeahead__search-result pl3 ",[27,"if",[[27,"global-helpers@eq",[[23,["focusedRecipient"]],[22,1,[]]],null],"msg-connections-typeahead__search-result--focused"],null]]]],[11,"tabindex","-1"],[11,"role","option"],[12,"id",[22,1,["entityUrn"]]],[12,"aria-selected",[27,"if",[[27,"global-helpers@eq",[[22,1,["entityUrn"]],[23,["focusedRecipient","entityUrn"]]],null],"true","false"],null]],[12,"onmousedown",[27,"tracked-action",[[23,["openConversationControlName"]],[27,"action",[[22,0,[]],[23,["openConversation"]],[22,1,["conversationId"]]],null]],null]],[9],[0,"\\n                "],[1,[27,"msg-ui-base@primitives/facepile-grid",null,[["participants","entitySize"],[[22,1,["miniProfiles"]],"small"]]],false],[0,"\\n                "],[7,"div"],[11,"class","msg-connections-typeahead__entity-description display-flex"],[9],[0,"\\n                  "],[7,"dl"],[11,"class","display-flex flex-column truncate"],[9],[0,"\\n                    "],[7,"dt"],[11,"class","t-14 t-black t-bold truncate"],[9],[1,[22,1,["text"]],false],[10],[0,"\\n                    "],[7,"dd"],[11,"class","t-12 t-black--light t-normal truncate"],[9],[1,[22,1,["subtext"]],false],[10],[0,"\\n                  "],[10],[0,"\\n                "],[10],[0,"\\n              "],[10],[0,"\\n"]],"parameters":[]},{"statements":[[0,"              "],[7,"button"],[12,"class",[28,["display-flex flex-row align-items-center msg-connections-typeahead__search-result pl3 ",[27,"if",[[27,"global-helpers@eq",[[23,["focusedRecipient"]],[22,1,[]]],null],"msg-connections-typeahead__search-result--focused"],null]]]],[11,"tabindex","-1"],[11,"role","option"],[12,"id",[22,1,["entityUrn"]]],[12,"aria-selected",[27,"if",[[27,"global-helpers@eq",[[22,1,["entityUrn"]],[23,["focusedRecipient","entityUrn"]]],null],"true","false"],null]],[12,"onmousedown",[27,"tracked-action",[[23,["addRecipientControlName"]],[27,"action",[[22,0,[]],"addRecipient",[22,1,["miniProfile"]]],null]],null]],[9],[0,"\\n                "],[1,[27,"presence@entity-with-presence",null,[["classNames","indicatorClasses","miniProfile","size"],["msg-connections-typeahead__presence-entity","msg-connections-typeahead__presence-entity-indicator",[22,1,["miniProfile"]],2]]],false],[0,"\\n                "],[7,"div"],[11,"class","msg-connections-typeahead__entity-description display-flex"],[9],[0,"\\n                  "],[7,"dl"],[11,"class","display-flex flex-column truncate msg-connections-typeahead__entity-description-list"],[9],[0,"\\n                    "],[7,"dt"],[11,"class","t-14 t-black t-bold truncate"],[9],[0,"\\n                      "],[1,[27,"ember-cli-pemberly-i18n@format-name",null,[["firstName","lastName","type","color"],[[22,1,["miniProfile","firstName"]],[22,1,["miniProfile","lastName"]],"full",true]]],false],[0,"\\n                    "],[10],[0,"\\n                    "],[7,"dd"],[11,"class","t-12 t-black--light t-normal truncate"],[9],[1,[22,1,["caption"]],false],[10],[0,"\\n                  "],[10],[0,"\\n"],[4,"if",[[22,1,["checked"]]],null,{"statements":[[0,"                    "],[7,"span"],[9],[1,[27,"ember-cli-pemberly-artdeco@li-icon",null,[["aria-hidden","class","type","size"],["true","msg-connections-typeahead__check-icon","check-icon","large"]]],false],[10],[0,"\\n"]],"parameters":[]},null],[0,"                "],[10],[0,"\\n              "],[10],[0,"\\n"]],"parameters":[]}],[0,"          "],[10],[0,"\\n"]],"parameters":[1]},null],[0,"      "],[10],[0,"\\n"]],"parameters":[]},{"statements":[[0,"      "],[7,"div"],[11,"class","msg-connections-typeahead__no-result p2 display-flex align-items-center"],[9],[0,"\\n        "],[5,"artdeco-inline-feedback@artdeco-inline-feedback",[],[["@message"],[[27,"t",["i18n_no_connection_results","msg-typeahead/templates/components/connections-typeahead-v2"],null]]]],[0,"\\n      "],[10],[0,"\\n    "]],"parameters":[]}]],"parameters":[]}],[0,"  "],[10],[0,"\\n"]],"parameters":[]},null]],"hasEval":false}',meta:{moduleName:"msg-typeahead/templates/components/connections-typeahead-v2.hbs"}})
+e.default=t})
+define("target-lix/services/target-lix",["exports","ember-stdlib/utils/is-browser","global-utils/utils/get-csrf-token","global-utils/utils/get-app-config"],function(e,t,i,s){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0})
+e.default=void 0
+var n=Ember.Service.extend({pemberlyNetwork:Ember.inject.service("pemberly-network"),init:function(){this._super.apply(this,arguments)
+this.set("_cache",void 0)},_getTestKeys:function(e){return e?Object.keys(this._cache[e]):Object.keys(this._cache.member)},appendToCache:function(e,t){void 0===t&&(t="member")
+if(this._cache)this.set("_cache."+t,Ember.assign(this._cache[t]||{},e))
+else{var i={}
+i[t]=e
+this.set("_cache",i)}},store:Ember.inject.service("store"),fetchLixData:function(e,t){return this._fetchLixData(e,{target:t},t)},fetchLixDataByCompanyName:function(e,t){return this._fetchLixData(e,{companyUniversalName:t},t)},_fetchLixData:function(e,n,a){var l=this
+if(this._cache&&this._cache[a])return Ember.RSVP.resolve()
+var o="/"+s.default.namespace+"/lixTreatments",r=e||this._getTestKeys()
+if(!r.length)return Ember.RSVP.resolve()
+var c={type:"GET",data:Ember.assign({ids:r},n),headers:{"X-RestLi-Protocol-Version":"2.0.0"}}
+t.default&&Ember.assign(c.headers,{"Csrf-Token":(0,i.default)()})
+return this.get("pemberlyNetwork").fetch(o,c).then((function(e){var t="object"!=typeof e?JSON.parse(e):e
+l.appendToCache(t.results,a)}))},getTreatment:function(e,t){void 0===t&&(t="member")
+var i,s=this._cache
+s&&s[t]&&(i=this._cache[t][e])
+return"object"==typeof i?i.treatment:i},getTreatmentIsEnabled:function(e,t){void 0===t&&(t="member")
+var i=this.getTreatment(e,t)
+return i&&"control"!==i},getTreatmentIsEnabledByIdOrName:function(e,t,i){return this.getTreatmentIsEnabled(e,t)||this.getTreatmentIsEnabled(e,i)}})
+e.default=n})
+
+//# sourceMappingURL=engine-vendor.map

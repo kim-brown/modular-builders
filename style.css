@@ -1,0 +1,270 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 18px;
+  font-family: Helvetica;
+}
+
+h1 {
+  font-size: 35px;
+  margin-left: 10px;
+  font-family: Garamond;
+  letter-spacing: 0.1em;
+}
+
+.header {
+  text-align: left;
+  font-family: Helvetica;
+  padding-left: 40px;
+  background-color: teal;
+  color: white;
+  border-color: teal;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+  box-shadow: 0 10px 20px
+  rgba(0,0,0,0.19), 0 6px 6px
+  rgba(0,0,0,0.23);
+}
+
+.topnav {
+  overflow: hidden;
+  padding-bottom: 5px;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.active {
+  background-color: #333;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  font-family: inherit;
+  color: black;
+  margin: 0;
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: black;
+  width: 33%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  padding: 10px 10px;
+}
+
+.topnav a:hover, .dropdown:hover .dropbtn {
+  background-color: #bbb;
+  color: black;
+}
+
+.dropdown-content a:hover {
+  background-color: #bbb;
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* The columns in the dropdown */
+.column {
+  float: left;
+  width: 50%;
+  padding: 30px;
+  background-color: white;
+}
+
+.column a {
+  float: none;
+  color: black;
+  text-decoration: none;
+  text-align: left;
+}
+
+.column a:hover {
+  background-color: #ddd;
+}
+
+.row {
+  display: flex;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.leftSide {
+  flex: 20%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+}
+
+/* Main column (w/ most of the content) */
+.main {
+  flex: 70%;
+  background-color: white;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.footer {
+  padding-bottom: 1px;
+  text-align: center;
+  background: #eee;
+  position: absolute;
+  width: 100%;
+}
+
+.contact-text {
+  font-size: 20px;
+  text-align: center;
+  margin-right: 200px;
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 950px) {
+  .row {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 100%;
+    height: auto;
+  }
+
+  .topnav a:not(:first-child), .dropdown .dropbtn {
+    display: none;
+  }
+
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+ @media screen and (max-width: 300px) {
+   .row {
+     flex-direction: column;
+   }
+
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .topnav.responsive .dropdown {
+    float: none;
+  }
+
+  .topnav.responsive .dropdown-content {
+    position: relative;
+    width: 100%;
+  }
+
+  .topnav.responsive .dropdown .dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .leftSide {
+    text-align: center;
+  }
+
+  .contact-text {
+    margin-right: 0px;
+  }
+}
+
+.contact {
+  color: white;
+  padding: 10px;
+}
+
+#contact-info {
+  background-color: #FF790E;
+}
+
+.signature {
+  font-size: 10px;
+  color: #777;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 20px;
+  background-color: white;
+  padding: 10px;
+}
+
+.grid-container > div {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 18px;
+}
